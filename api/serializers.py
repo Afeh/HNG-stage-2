@@ -35,8 +35,7 @@ class UserSerializer(serializers.ModelSerializer):
 			errors['password']= "Password is required."
 		if not attrs['lastName']:
 			errors['lastName'] = "Last name is required."
-		if attrs['phone'] and not attrs['phone'].isdigit():
-			errors['phone'] = 'Phone number must be numeric.'
+
 		
 		if errors:
 			# raise(CustomValidationError(errors))
