@@ -23,9 +23,9 @@ class TokenTestCase(TestCase):
 		self.user = CustomerUser.objects.create_user(
 			email = 'testuser@example.com',
 			password = 'testpassword',
-			first_name = 'Test',
+			firstName = 'Test',
 			phone = '08215744603',
-			last_name = 'User'
+			lastName = 'User'
 		)
 
 	def test_token_generation(self):
@@ -62,15 +62,15 @@ class OrganisationAccessTestCase(TestCase):
 		self.user1 = CustomerUser.objects.create_user(
 			email='user1@example.com',
 			password='password123',
-			first_name='User',
-			last_name='One',
+			firstName='User',
+			lastName='One',
 			phone='08182828282'
 		)
 		self.user2 = CustomerUser.objects.create_user(
 			email='user2@example.com',
 			password='password123',
-			first_name='User',
-			last_name='Two',
+			firstName='User',
+			lastName='Two',
 			phone='08182828382'
 		)
 
@@ -115,8 +115,8 @@ class RegisterTests(APITestCase):
 		data = {
 			"email": "john.doe@example.com",
 			"password": "password123",
-			"first_name": "John",
-			"last_name": "Doe",
+			"firstName": "John",
+			"lastName": "Doe",
 			"phone": "1234567890"
 		}
 
@@ -136,8 +136,8 @@ class RegisterTests(APITestCase):
 		user_data = {
 			"email": "jane.doe@example.com",
 			"password": "password123",
-			"first_name": "Jane",
-			"last_name": "Doe",
+			"firstName": "Jane",
+			"lastName": "Doe",
 			"phone": "1234567890"
 		}
 		self.client.post(self.register_url, user_data, format='json')
@@ -154,27 +154,27 @@ class RegisterTests(APITestCase):
 		data = {
 			"email": "missing.fields@example.com",
 			"password": "password123",
-			"last_name": "LastName"
+			"lastName": "LastName"
 		}
 
 		response = self.client.post(self.register_url, data, format='json')
 		self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
-		self.assertIn('first_name', response.data)
+		self.assertIn('firstName', response.data)
 
 		data = {
 			"email": "missing.fields@example.com",
 			"password": "password123",
-			"first_name": "FirstName"
+			"firstName": "FirstName"
 		}
 
 		response = self.client.post(self.register_url, data, format='json')
 		self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
-		self.assertIn('last_name', response.data)
+		self.assertIn('lastName', response.data)
 
 		data = {
 			"email": "missing.fields@example.com",
-			"first_name": "FirstName",
-			"last_name": "LastName"
+			"firstName": "FirstName",
+			"lastName": "LastName"
 		}
 
 		response = self.client.post(self.register_url, data, format='json')
@@ -182,8 +182,8 @@ class RegisterTests(APITestCase):
 		self.assertIn('password', response.data)
 
 		data = {
-			"first_name": "FirstName",
-			"last_name": "LastName",
+			"firstName": "FirstName",
+			"lastName": "LastName",
 			"password": "Pasword123"
 		}
 
@@ -196,16 +196,16 @@ class RegisterTests(APITestCase):
 		data1 = {
 			"email": "duplicate@example.com",
 			"password": "password123",
-			"first_name": "First",
-			"last_name": "User",
+			"firstName": "First",
+			"lastName": "User",
 			"phone": "1234567890"
 		}
 
 		data2 = {
 			"email": "duplicate@example.com",
 			"password": "password123",
-			"first_name": "Second",
-			"last_name": "User",
+			"firstName": "Second",
+			"lastName": "User",
 			"phone": "1234567890"
 		}
 

@@ -27,14 +27,14 @@ class UserSerializer(serializers.ModelSerializer):
 	def validate(self, attrs):
 		errors = {}
 
-		if not attrs['first_name']:
-			errors['first_name']= "First name is required."
+		if not attrs['firstName']:
+			errors['firstName']= "First name is required."
 		if not attrs['email']:
 			errors['email']= "Email is required."
 		if not attrs['password']:
 			errors['password']= "Password is required."
-		if not attrs['last_name']:
-			errors['last_name'] = "Last name is required."
+		if not attrs['lastName']:
+			errors['lastName'] = "Last name is required."
 		if attrs['phone'] and not attrs['phone'].isdigit():
 			errors['phone'] = 'Phone number must be numeric.'
 		
@@ -45,13 +45,13 @@ class UserSerializer(serializers.ModelSerializer):
 	
 	def create(self, validated_data):
 		user = CustomUser.objects.create_user(**validated_data)
-		# org_name = f"{validated_data['first_name']}'s Organisation"
+		# org_name = f"{validated_data['firstName']}'s Organisation"
 		# Organisation.objects.create(name=org_name, owner=user)
 		return user
 	
 	class Meta:
 		model = CustomUser
-		fields = ('email', 'password', 'first_name', 'last_name', 'phone', 'userId')
+		fields = ('email', 'password', 'firstName', 'lastName', 'phone', 'userId')
 		read_only_fields = ['userId']
 
 
@@ -59,8 +59,8 @@ class UserSerializer(serializers.ModelSerializer):
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 	def update_token_claims(self, token, user):
 		token['email'] = user.email
-		token['first_name'] = user.first_name
-		token['last_name'] = user.last_name
+		token['firstName'] = user.firstName
+		token['lastName'] = user.lastName
 
 		return token
 
